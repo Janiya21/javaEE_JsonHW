@@ -139,38 +139,31 @@
         });
     });
 
-    /*$("#btnUpdate").click(function () {
-        let cusID = $("#cusID").val();
-        let cusName =  $("#cusName").val();
-        let cusAddress=  $("#cusAddress").val();
-        let cusSal=  $("#cusSalary").val();
-        $.ajax({
-            url: "customer?CusId="+cusID+"&CusName="+cusName+"&CusAddress="+cusAddress+"&CusSalary="+cusSal,
-            method:"PUT",
-            // data:data,
-            // dataType:"json", // please convert the response into JSON
-            success: function (resp) {
-                console.log(resp);
-                loadAllCustomers();
-            }
-        });
-    });*/
-
     // update a customer
-    $("#btnUpdateCustomer").click(function () {
-        let formData = $("#customerForm").serialize();
-        console.log(formData);
+    $("#btnUpdate").click(function () {
+        let customerId  = $("#cusID").val();
+        let customerName  =  $("#cusName").val();
+        let customerAddress  =  $("#cusAddress").val();
+        let salary  =  $("#cusSalary").val();
+
+        let jsonData  =  JSON.stringify({
+            "customerId":customerId,
+            "customerName": customerName,
+            "customerAddress":customerAddress,
+            "salary":salary
+        });
+
         $.ajax({
-            url: "customer?" + formData,
+            url: "customer",
             method: "PUT",
-            // data:formData,
-            success: function (res) {
-                alert(res);
+            data: jsonData,
+            contentType: "application/json",
+            success: function (resp) {
                 loadAllCustomers();
             }
+
         });
     });
-
     // bind table row click event
     function bindClickEvents() {
         $("#tblCustomerJson>tr").click(function () {
